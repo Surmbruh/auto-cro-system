@@ -1,9 +1,0 @@
-name: setup_mlops_tracker
-description: "Оборачивает ML-функцию обучения или инференса в MLOps трекер WandB"
-trigger: "@setup_mlops_tracker"
-instructions: |
-  1. Проанализируй целевую Python-функцию.
-  2. Импортируй `wandb`, если его нет.
-  3. Добавь декоратор (или контекстный менеджер `wandb.init()`), логирующий гиперпараметры на входе (args, kwargs) и метрики на выходе (return values).
-  4. Если функция возвращает loss или reward, добавь `wandb.log({"reward": <val>})`.
-  5. Убедись, что код не ломает асинхронность (если это async def FastAPI).
