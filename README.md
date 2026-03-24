@@ -80,5 +80,4 @@ uv run pytest tests/
 ```
 Покрытие: 100% юнит-тестов Thompson-бандита на корректную сходимость (приоритезация выигрышной "ручки") и обработку моковых Async VLM ответов.
 
----
-*Developed with Advanced Agentic Coding Architecture.*
+
