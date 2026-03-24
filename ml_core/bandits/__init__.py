@@ -1,0 +1,1 @@
+"""Bandits subpackage: Thompson Sampling."""

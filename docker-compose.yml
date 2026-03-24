@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  autocro-api:
+    build: .
+    container_name: autocro_backend
+    ports:
+      - "8000:8000"
+    environment:
+      # Забираем секретные переменные из локального .env
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+      - MLFLOW_TRACKING_URI=sqlite:///mlruns.db
+    volumes:
+      # Пробрасываем файл MLflow из контейнера на хост-машину,
+      # чтобы при перезапуске контейнера не терялись метрики MLflow
+      - ./mlruns.db:/app/mlruns.db
+    restart: unless-stopped

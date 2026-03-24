@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto-CRO System Demo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+        
+        * { box-sizing: border-box; }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            padding: 20px 40px;
+            background: #1e293b;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo { font-weight: 800; font-size: 1.5rem; letter-spacing: -1px; }
+
+        .banner-container {
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 60px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Shared Card Styles */
+        .variant-card {
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .variant-card h1 { font-size: 3rem; margin-bottom: 20px; }
+        .variant-card p { font-size: 1.2rem; margin-bottom: 40px; opacity: 0.9; }
+        
+        /* 
+           Variant 0: The Baseline 
+           Professional, standard blue accent 
+        */
+        #variant-0 {
+            background: #1e293b;
+            border: 1px solid #334155;
+        }
+        #variant-0 .cta-btn {
+            background: #3b82f6;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+        }
+
+        /* 
+           Variant 1: Aggressive & Urgent
+           Warm colors, bold rounded button, high contrast
+        */
+        #variant-1 {
+            background: linear-gradient(135deg, #4c0519 0%, #1e293b 100%);
+            border: 2px solid #e11d48;
+            box-shadow: 0 0 40px rgba(225, 29, 72, 0.2);
+        }
+        #variant-1 .cta-btn {
+            background: #e11d48;
+            color: white;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 10px 20px rgba(225, 29, 72, 0.4);
+        }
+        
+        /* 
+           Variant 2: Minimalist Glassmorphism
+           Subtle, elegant, ghost button
+        */
+        #variant-2 {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        #variant-2 h1 { font-weight: 400; letter-spacing: 2px; }
+        #variant-2 .cta-btn {
+            background: transparent;
+            color: #f8fafc;
+            padding: 14px 40px;
+            border-radius: 0;
+            font-size: 1rem;
+            letter-spacing: 3px;
+            font-weight: 400;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: 1px solid #f8fafc;
+            transition: all 0.3s;
+        }
+        #variant-2 .cta-btn:hover { background: #f8fafc; color: #0f172a; }
+
+        .loader-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            z-index: 1000;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+        }
+        .spinner {
+            width: 50px; height: 50px;
+            border: 5px solid rgba(255,255,255,0.1);
+            border-top-color: #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s infinite linear;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+    </style>
+</head>
+<body>
+    
+    <div id="loading" class="loader-overlay">
+        <div class="spinner"></div>
+        <p style="margin-top: 20px; font-weight: 600;">VLM Model Analyzing UI...</p>
+    </div>
+
+    <header>
+        <div class="logo">AutoCRO</div>
+        <nav style="font-size: 0.9rem; opacity: 0.7;">Intelligent Landing Pages</nav>
+    </header>
+
+    <div class="banner-container" id="screenshot-zone">
+        <!-- Variant 0 -->
+        <div id="variant-0" class="variant-card">
+            <h1>Upgrade Your Workflow</h1>
+            <p>Our standard professional landing page variant. Focused on clear communication and reliable software solutions.</p>
+            <button class="cta-btn">Start Free Trial</button>
+        </div>
+
+        <!-- Variant 1 -->
+        <div id="variant-1" class="variant-card">
+            <h1>DOMINATE YOUR MARKET</h1>
+            <p>Don't wait. The best companies optimize relentlessly. Get the ultimate tool for exponential growth today!</p>
+            <button class="cta-btn">GET ACCESS NOW</button>
+        </div>
+
+        <!-- Variant 2 -->
+        <div id="variant-2" class="variant-card">
+            <h1>Elevate.</h1>
+            <p>Simplifying complexity. An elegant solution for modern digital creators.</p>
+            <button class="cta-btn">Discover</button>
+        </div>
+    </div>
+
+    <!-- Inject the AutoCRO SDK -->
+    <script src="/static/auto-cro.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            // Instantiate SDK
+            const cro = new AutoCRO({
+                apiUrl: 'http://localhost:8000',
+                screenshotTarget: 'body', // Takes a screenshot of the entire visible body
+                variants: ['#variant-0', '#variant-1', '#variant-2'],
+                rewardSelectors: ['.cta-btn'] // Any click on these specific classes triggers reward 1.0
+            });
+
+            try {
+                // Takes screenshot -> Decides Variant -> Displays it
+                await cro.init();
+            } finally {
+                // Always hide loading overlay regardless of success or failure
+                document.getElementById('loading').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
